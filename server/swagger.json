@@ -5,7 +5,7 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api": {
+    "/scan": {
       "post": {
         "summary": "Send a POST request to an external URL",
         "requestBody": {
