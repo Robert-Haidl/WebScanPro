@@ -2,12 +2,11 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-/* GET api listing. */
 router.get('/', (req, res) => {
   res.send('api works');
 });
 
-app.post('/scan', async (req, res) => {
+router.post('/scan', async (req, res) => {
     const url = req.body.url;
   
     if (!url) {
@@ -16,12 +15,14 @@ app.post('/scan', async (req, res) => {
     }
   
     try {
-      const response = await axios.get(url);
+      const response = await axios.head(url); // Use axios.head to retrieve only the response headers
   
-      // Assuming that the response from the URL is already in JSON format
-      res.status(200).json(response.data);
+      const responseHeaders = response.headers; // Extract the response headers
+  
+      res.status(200).json({ headers: responseHeaders });
     } catch (error) {
       res.status(502).json({ error: 'Bad Gateway: Error while fetching the URL.' });
     }
   });
+
 module.exports = router;

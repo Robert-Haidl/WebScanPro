@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use('/api', api);
 
 app.use(cors());
-app.use(['/docs', '/swagger'], swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
