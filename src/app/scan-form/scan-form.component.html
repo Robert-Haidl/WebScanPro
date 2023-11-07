@@ -1,0 +1,8 @@
+<form [formGroup]="scanForm" (ngSubmit)="submitForm()">
+    <label for="websites">List websites (comma-separated, without protocol) which should be included in the scan result</label>
+    <textarea name="websites" cols="30" rows="10" formControlName="websites"></textarea>
+
+    <button type="submit" [disabled]="!scanForm.valid">Submit</button>
+</form>
+
+<form-result [result]="formResult"></form-result>
