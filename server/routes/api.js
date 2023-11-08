@@ -15,13 +15,9 @@ router.post('/scan', async (req, res) => {
     }
   
     try {
-      const response = await axios.head(url); // Use axios.head to retrieve only the response headers
-  
-      const responseHeaders = response.headers; // Extract the response headers
-  
-      res.status(200).json({ headers: responseHeaders });
+        await axios.head(url).then(response => res.status(200).json({ response: response.headers }))
     } catch (error) {
-      res.status(502).json({ error: 'Bad Gateway: Error while fetching the URL.' });
+      res.status(502).json({ error: 'Bad Gateway: Error while fetching the URL. '+error });
     }
   });
 
