@@ -1,5 +1,6 @@
-import { HeaderType } from "./header-type";
-
 export interface Header {
-    type: HeaderType
+    type: string;
+    value: string;
+    status: string;
+    result: string;
 }

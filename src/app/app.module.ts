@@ -7,12 +7,18 @@ import { ScanFormComponent } from './scan-form/scan-form.component';
 import { FormResultComponent } from './form-result/form-result.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from  '@angular/common/http';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScanFormComponent,
-    FormResultComponent
+    FormResultComponent,
+    LandingPageComponent,
+    SpinnerComponent,
+    DocumentationComponent
   ],
   imports: [
     HttpClientModule,

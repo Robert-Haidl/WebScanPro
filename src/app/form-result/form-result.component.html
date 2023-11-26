@@ -1,2 +1,26 @@
-<p>result:</p>
-<p>{{ result.value }}</p>
+<ng-container *ngIf="!!result.headers; else error">
+    <h1 [style.color]="certificateColor">{{ certificateText }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Header</th>
+                <th>Summary</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let header of result.headers">
+                <td>{{ header.type }}</td>
+                <td>{{ header.result }}</td>
+                <td>{{ header.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+
+<ng-template #error>
+    {{ result.error }}
+</ng-template>
+
+<documentation></documentation>
+

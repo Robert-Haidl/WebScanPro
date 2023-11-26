@@ -1,0 +1,31 @@
+div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    display: flex;
+    width: 32px;
+    height: 32px;
+}
+.spinner {
+    content: " ";
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid royalblue;
+    border-color: royalblue transparent royalblue transparent;
+    animation: spinner 1.2s linear infinite;
+}
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+  

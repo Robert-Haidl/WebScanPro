@@ -1,0 +1,22 @@
+#container {
+    text-align: center;
+    padding: 50px;
+    max-width: 700px;
+}
+
+.center {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    max-width: 300px;
+}
+
+:host {
+    display: block;
+    background-color: bisque;
+    min-height: 100vh;
+}

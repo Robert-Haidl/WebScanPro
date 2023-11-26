@@ -1,3 +1,7 @@
+import { Header } from "./header";
+
 export interface FormResult {
-    value: string;
+    headers: Header[];
+    certificate: string;
+    error?: string;
 }

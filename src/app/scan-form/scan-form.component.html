@@ -1,8 +1,17 @@
-<form [formGroup]="scanForm" (ngSubmit)="submitForm()">
-    <label for="websites">List websites (comma-separated, without protocol) which should be included in the scan result</label>
-    <textarea name="websites" cols="30" rows="10" formControlName="websites"></textarea>
+<p>Check Security Headers and SSL/TLS Certificate Version of your Server</p>
 
-    <button type="submit" [disabled]="!scanForm.valid">Submit</button>
+<form [formGroup]="scanForm" (ngSubmit)="submitForm()">
+        <input required name="websites" cols="30" rows="10" formControlName="websites" placeholder="Enter your URL e.g. https://google.com">
+        <button type="submit" [disabled]="!scanForm.valid">Scan now</button>
 </form>
 
-<form-result [result]="formResult"></form-result>
+<p>{{ error }}</p>
+
+<ng-container *ngIf="loading; else result">
+    <div class="spinner"></div>
+    <spinner></spinner>
+</ng-container>
+
+<ng-template #result>
+    <form-result [result]="formResult"></form-result>
+</ng-template>
