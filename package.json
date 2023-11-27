@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node ./server/server.js",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -42,8 +42,7 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.9.4"
   },
-  "description": "small website scanner, which scans CSP and CORS headers",
-  "main": "./server/server.js",
+  "description": "small website scanner, which scans TLS/SSL version and security headers",
   "repository": "https://github.com/Robert-Haidl/WebScanPro.git",
   "author": "Robert <robert.haidl@stud.fh-campuswien.ac.at>",
   "license": "MIT"
