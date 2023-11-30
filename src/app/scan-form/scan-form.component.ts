@@ -37,7 +37,7 @@ export class ScanFormComponent {
 
   mapUrl(inputUrl: string) : string {
     if (!!inputUrl) {
-        if (!inputUrl.startsWith('http://' || 'https://')) {
+        if (!inputUrl.startsWith('http://') || !inputUrl.startsWith('https://')) {
           inputUrl = 'https://' + inputUrl;
         }
         if (inputUrl.startsWith('http://')) {
