@@ -1,26 +1,33 @@
-<ng-container *ngIf="!!result.headers; else error">
-    <h1 [style.color]="certificateColor">{{ certificateText }}</h1>
-    <table>
+<mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ result.url }} <small *ngIf="!!result.finalUrl"> (Redirecting to: {{ result.finalUrl }})</small>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <ng-container *ngIf="!!result.headers; else error">
+      <h1 [style.color]="certificateColor">{{ certificateText }}</h1>
+      <table>
         <thead>
-            <tr>
-                <th>Header</th>
-                <th>Summary</th>
-                <th>Status</th>
-            </tr>
+          <tr>
+            <th>Header</th>
+            <th>Summary</th>
+            <th>Status</th>
+          </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let header of result.headers">
-                <td>{{ header.type }}</td>
-                <td>{{ header.result }}</td>
-                <td>{{ header.status }}</td>
-            </tr>
+          <tr *ngFor="let header of result.headers">
+            <td>{{ header.type }}</td>
+            <td>{{ header.result }}</td>
+            <td>{{ header.status }}</td>
+          </tr>
         </tbody>
-    </table>
-</ng-container>
-
-<ng-template #error>
-    {{ result.error }}
-</ng-template>
-
-<documentation></documentation>
-
+      </table>
+    </ng-container>
+  
+    <ng-template #error>
+      {{ result.error }}
+    </ng-template>
+  
+  </mat-expansion-panel>
+  

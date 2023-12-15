@@ -13,5 +13,9 @@
 </ng-container>
 
 <ng-template #result>
-    <form-result [result]="formResult"></form-result>
+    <form-result *ngFor="let result of formResult" [result]="result"></form-result>
 </ng-template>
+
+<documentation></documentation>
+<!-- TODO: Implement charts -->
+<!-- <charts></charts> -->

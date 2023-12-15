@@ -22,3 +22,17 @@ table {
   table tbody tr:nth-child(odd) {
     background-color: white;
   }
+
+  h1 {
+    font-weight: 100;
+    line-height: normal;
+  }
+
+mat-expansion-panel {
+  margin: 10px 0;
+}
+
+small {
+  flex-basis: 100%;
+  text-align: right;
+}

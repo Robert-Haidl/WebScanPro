@@ -28,7 +28,7 @@ export class FormResultComponent implements OnChanges {
           break;
         case "TLSv1.2":
           this.certificateText = "This Website uses only TLS Version 1.2, it is suggested to upgrade to Version 1.3";
-          this.certificateColor = "yellow";
+          this.certificateColor = "orange";
           break;
         case "TLSv1.1":
           this.certificateText = "This Website uses a not supported TLS Version 1.1, it is highly suggested to upgrade to a newer version";

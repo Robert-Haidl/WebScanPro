@@ -12,7 +12,7 @@ export class ScanFormComponent {
 
   constructor(private scanService: ScanService) {}
 
-  formResult! : FormResult;
+  formResult! : FormResult[];
   loading: boolean = false;
   error: string = '';
   scanForm = new FormGroup({
@@ -22,10 +22,9 @@ export class ScanFormComponent {
   submitForm() : void {
     this.loading = true;
     const url = this.mapUrl(this.scanForm.value.websites!);
-    this.scanForm.get('websites')?.setValue(url);
 
     this.scanService.scanWebsite(url).subscribe(
-      (response) => {
+      (response : FormResult[]) => {
         this.formResult = response;
         this.loading = false;
       },
@@ -35,9 +34,14 @@ export class ScanFormComponent {
     );
   }
 
-  mapUrl(inputUrl: string) : string {
+  mapUrl(formInput: string) : string[] {
+    formInput = formInput.replaceAll(" ", "");
+    const urls = formInput.split(",");
+    return urls.map(url => this.addProtocolToUrl(url));
+  }
+  addProtocolToUrl(inputUrl: string) : string {
     if (!!inputUrl) {
-        if (!inputUrl.startsWith('http://') || !inputUrl.startsWith('https://')) {
+        if (!inputUrl.startsWith('http://') && !inputUrl.startsWith('https://')) {
           inputUrl = 'https://' + inputUrl;
         }
         if (inputUrl.startsWith('http://')) {

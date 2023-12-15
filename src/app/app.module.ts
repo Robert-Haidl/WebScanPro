@@ -10,6 +10,10 @@ import { HttpClientModule } from  '@angular/common/http';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { DocumentationComponent } from './documentation/documentation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { NgChartsModule } from 'ng2-charts';
+import { ChartsComponent } from './charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +22,17 @@ import { DocumentationComponent } from './documentation/documentation.component'
     FormResultComponent,
     LandingPageComponent,
     SpinnerComponent,
-    DocumentationComponent
+    DocumentationComponent,
+    ChartsComponent
   ],
   imports: [
     HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatExpansionModule,
+    NgChartsModule,                                                                                                                                                                                                                                                                                                                                                              
   ],
   providers: [],
   bootstrap: [AppComponent]
