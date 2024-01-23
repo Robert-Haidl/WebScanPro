@@ -7,9 +7,6 @@ import {
     XContentSecurityPolicyService,
     XWebkitCSPService,
     ContentSecurityPolicyService,
-    CrossOriginEmbedderPolicyService,
-    CrossOriginOpenerPolicyService,
-    CrossOriginResourcePolicyService,
     PermissionsPolicyService,
     ReferrerPolicyService,
     XContentTypeOptionsService,
@@ -26,9 +23,6 @@ export class HeaderScannerService {
         private readonly xContentSecurityPolicyService: XContentSecurityPolicyService,
         private readonly xWebKitCSPService: XWebkitCSPService,
         private readonly contentSecurityPolicyService: ContentSecurityPolicyService,
-        private readonly crossOriginEmbedderPolicyService: CrossOriginEmbedderPolicyService,
-        private readonly crossOriginOpenerPolicyService: CrossOriginOpenerPolicyService,
-        private readonly crossOriginResourcePolicyService: CrossOriginResourcePolicyService,
         private readonly permissionsPolicyService: PermissionsPolicyService,
         private readonly referrerPolicyService: ReferrerPolicyService,
         private readonly xContentTypeOptionsService: XContentTypeOptionsService,
@@ -41,9 +35,6 @@ export class HeaderScannerService {
     
         scanResult.push(this.contentSecurityPolicyService.scanHeaders(headers));
         scanResult.push(this.xContentSecurityPolicyService.scanHeaders(headers));
-        scanResult.push(this.crossOriginEmbedderPolicyService.scanHeaders(headers));
-        scanResult.push(this.crossOriginOpenerPolicyService.scanHeaders(headers));
-        scanResult.push(this.crossOriginResourcePolicyService.scanHeaders(headers));
         scanResult.push(this.permissionsPolicyService.scanHeaders(headers));
         scanResult.push(this.referrerPolicyService.scanHeaders(headers));
         scanResult.push(this.strictTransportSecurityService.scanHeaders(headers));

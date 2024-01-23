@@ -5,6 +5,8 @@
         <button type="submit" [disabled]="!scanForm.valid">Scan now</button>
 </form>
 
+<button type="button" (click)="loadTop50At()">Top 50 AT</button>
+
 <p>{{ error }}</p>
 
 <ng-container *ngIf="loading; else result">
@@ -16,6 +18,5 @@
     <form-result *ngFor="let result of formResult" [result]="result"></form-result>
 </ng-template>
 
+<charts *ngIf="formResult" [formResult]="formResult"></charts>
 <documentation></documentation>
-<!-- TODO: Implement charts -->
-<!-- <charts></charts> -->

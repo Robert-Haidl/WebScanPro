@@ -9,9 +9,9 @@ export class ContentSecurityPolicyService {
     constructor() { }
 
     scanHeaders(headers: Header[]) : HeaderScanResult {
-        const header = headers.find(h => h.type === HeaderType.CONTENT_SECURITY_POLICY || h.type === HeaderType.CONTENT_SECURITY_POLICY_REPORT_ONLY);
+        const header = headers.find(h => h.type === HeaderType.CONTENT_SECURITY_POLICY);
         if(!!header) {
-            header.result = 'Header set. Analysis TBD';
+            header.result = 'Header set.';
             header.status = HeaderScanResultStatus.SUCCESS;
             return header;   
         }  

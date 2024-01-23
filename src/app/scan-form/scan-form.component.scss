@@ -17,11 +17,18 @@ button {
     font-weight: 400;
     background-color: royalblue;
     flex-shrink: 0;
-    margin-left: 30px;
     cursor: pointer;
 
     &:disabled {
         cursor: not-allowed;
+    }
+
+    &[type=submit] {
+        margin-left: 30px;
+    }
+
+    &[type=button] {
+        margin-top: 10px;
     }
 }
 

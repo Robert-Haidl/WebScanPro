@@ -1,46 +1,135 @@
-import { Component, OnInit } from '@angular/core';
-import { BarControllerChartOptions, ChartData, ChartDatasetProperties, ChartOptions } from 'chart.js';
+import { Component, Input } from '@angular/core';
+import { ChartData, ChartDatasetProperties, ChartOptions } from 'chart.js';
+import { FormResult } from '../models/form-result';
 
 @Component({
   selector: 'charts',
   templateUrl: './charts.component.html',
   styleUrls: ['./charts.component.scss']
 })
-export class ChartsComponent implements OnInit{
+export class ChartsComponent{
 
   barChartData: ChartData | undefined;
-  barChartOptions: ChartOptions = {};
+  barChartOptions: ChartOptions = {
+    plugins: {
+        legend: {
+            display: false,
+         }
+    },
+    scales: {
+      x: {
+          ticks: {
+              autoSkip: false,
+              maxRotation: 90,
+              minRotation: 60
+          }
+      }
+    },
+    responsive: true
+  };
   barChartProperties!: ChartDatasetProperties<any, any>;
 
-  ngOnInit(): void {
+  pieChartData: ChartData | undefined;
+  pieChartOptions: ChartOptions = {
+    plugins: {
+        legend: {
+            display: false,
+         }
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+  };
+  pieChartProperties!: ChartDatasetProperties<any, any>;
 
-    const labels = ["a", "b", "c", "d", "e", "f", "g"];
+
+  @Input() formResult!: FormResult[];
+
+  ngOnChanges(): void {
+    this.formResult = this.filterFormResult(this.formResult);
+    this.generateBarChart();
+    this.generatePieChart();
+  }
+
+  generateBarChart(): void {
+    const headersCountMap = new Map<string, { total: number, successful: number }>();
+
+    this.formResult.forEach(result => {
+      result.headers.forEach(header => {
+        const headerName = header.type;
+        const currentCount = headersCountMap.get(headerName) || { total: 0, successful: 0 };
+        currentCount.total++;
+        if (header.status === 'SUCCESS') {
+          currentCount.successful++;
+        }
+
+        if (currentCount.successful > 0) {
+          headersCountMap.set(headerName, currentCount);
+        }
+      });
+    });
+
+    const labels = Array.from(headersCountMap.keys());
+    const data = labels.map(headerName => {
+      const counts = headersCountMap.get(headerName);
+      return counts ? (counts.successful / this.formResult.length) * 100 : 0;
+    });
+
     this.barChartData = {
       labels: labels,
       datasets: [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)'
-        ],
-        borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)'
-        ],
-        borderWidth: 1
-      }]
+        label: 'Success rate in %',
+        data: data,
+        backgroundColor: this.generateRandomColors(labels.length),
+        borderWidth: 0
+      }],
     };
+  }
+
+  generatePieChart(): void {
+    const certificatesCountMap = new Map<string, number>();
+
+    this.formResult.forEach(result => {
+      const certificateName = result.certificate;
+      const currentCount = certificatesCountMap.get(certificateName) || 0;
+      certificatesCountMap.set(certificateName, currentCount + 1);
+    });
+
+    const labels = Array.from(certificatesCountMap.keys());
+
+    const data = labels.map(headerName => {
+      const counts = certificatesCountMap.get(headerName);
+      return counts ? (counts / this.formResult.length) * 100 : 0;
+    });
+
+    this.pieChartData = {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: this.generateRandomColors(labels.length),
+        borderWidth: 0
+      }],
+    };
+  }
+
+  filterFormResult(formResult: FormResult[]): FormResult[] {
+    return formResult.filter(result => !result.error);
+  }
+
+  generateRandomColors(count: number): string[] {
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+      colors.push(this.getRandomColor());
+    }
+    return colors;
+  }
+
+  getRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 
 }

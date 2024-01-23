@@ -4,7 +4,6 @@ import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { HeaderMapperService } from './header-mapper.service';
 import { HeaderScannerService } from './header-scanner.service';
-import { Response } from './models/response';
 import * as https from 'https';
 
 @Controller('api')
@@ -36,7 +35,7 @@ export class AppController {
           url: data.url,
           method: 'get',
           httpsAgent: new https.Agent({
-            rejectUnauthorized: false, //needed?
+            rejectUnauthorized: false,
           })
             .on('keylog', (line, tlsSocket) => {
               cert = tlsSocket.getPeerCertificate(false);
@@ -86,16 +85,14 @@ export class AppController {
         let cert;
         let certVersion: string;
         let axiosRequest: AxiosRequestConfig;
-        let axiosResponse: AxiosResponse; // Declare axiosResponse before the loop
-        let finalUrl = el.url; // Initialize with the original URL
+        let axiosResponse: AxiosResponse; 
+        let finalUrl = el.url;
   
-        // Follow redirects until there are no more
         do {
-          // Make a GET request to get the certificate and TLS version
           axiosRequest = {
             url: finalUrl,
             method: 'get',
-            validateStatus: null, // Allow non-successful status codes to capture redirect headers
+            validateStatus: null,
             httpsAgent: new https.Agent({
               rejectUnauthorized: false,
             }).on('keylog', (line, tlsSocket) => {
@@ -104,7 +101,7 @@ export class AppController {
             }),
           };
   
-          axiosResponse = await axios(axiosRequest); // Update axiosResponse inside the loop
+          axiosResponse = await axios(axiosRequest);
   
           // Update the final URL to the latest location header or the original URL
           finalUrl = axiosResponse.request.res.responseUrl || finalUrl;
@@ -131,43 +128,4 @@ export class AppController {
   
     return response;
   }
-  
-
-  @Post('headers')
-  @ApiResponse({ status: 200, description: 'Successful response' })
-  async getHeaders(@Body() data: { url: string }): Promise<any> {
-    try {
-      const response = await axios.head(data.url);
-      const responseHeaders = response.headers as any;
-      
-      var mappedHeaders = this.mapperService.mapJSONResponseToHeaders(responseHeaders);
-
-      return {
-        response: mappedHeaders,
-      };
-    } catch (error) {
-      return {
-        error: 'Bad Gateway: Error while fetching the URL. ' + error.message,
-      };
-    }
-  }
-
-  @Post('cors')
-  @ApiResponse({ status: 200, description: 'Successful response' })
-  async checkCors(@Body() data: { url: string }): Promise<any> {
-    try {
-      const response = await axios.post(data.url, {});
-
-      const corsHeadersExist = response.headers['access-control-allow-origin'] !== undefined;
-
-      return {
-        result: response,
-      };
-    } catch (error) {
-      return {
-        error: 'Bad Gateway: Error while fetching the URL. ' + error.message,
-      };
-    }
-  }
-
 }

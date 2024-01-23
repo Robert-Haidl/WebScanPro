@@ -1,2 +1,9 @@
-<p>Here will be some charts listed:</p>
-<canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="'bar'"> </canvas>
+<div *ngIf="formResult.length > 0">
+    <p>Successful headers in %</p>
+    <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="'bar'"> </canvas>
+    <p>SSL/TLS Version in %</p>
+    <div style="height: 200px;">
+
+        <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="'pie'"> </canvas>
+    </div>
+</div>

@@ -1,6 +1,10 @@
 <h2>List of headers which WebScanPro scans:</h2>
+
+<h3>Content-Security-Policy</h3>
+<p>The HTTP Content-Security-Policy response header allows website administrators to control resources the user agent is allowed to load for a given page. With a few exceptions, policies mostly involve specifying server origins and script endpoints. This helps guard against cross-site scripting attacks (Cross-site_scripting).</p>
+
 <h3>Strict-Transport-Security (HSTS)</h3>
-<p>The HTTP Strict-Transport-Security response header (often abbreviated as HSTS) lets a website tell browsers that it should only be accessed using HTTPS, instead of using HTTP.</p>
+<p>The HTTP Strict-Transport-Security response header (often abbreviated as HSTS) lets a website tell browsers that it should only be accessed using HTTPS, instead of using HTTP. Most websites automatically redirect to https but this header should still be used e.g. to prevent SSL Stripping attacks (When users visit a website, they first connect with the HTTP version before getting rerouted to the HTTPS version. In SSL stripping attacks, hackers jump in this window to act as a man in the middle and prevent users from ever connecting with the HTTPS version of the site.)</p>
 
 <h3>X-XSS-Protection</h3>
 <p>Browser stops loading the page if it detects reflected XSS<br>
@@ -12,10 +16,13 @@
 <p>Blocks mime type sniffing and should be set as followed:</p>
 <code>X-Content-Type-Options: nosniff</code>
 
-<h3>Referrer-Policy</h3>
-<p>Referrer policy has been supported by browsers since 2014. Today, the default behavior in modern browsers is to no longer send all referrer information (origin, path, and query string) to the same site but to only send the origin to other sites. However, since not all users may be using the latest browsers it is suggested forcing this behavior by sending this header on all responses.</p>
+<h3>X-Frame-Options</h3>
+<p>The X-Frame-Options HTTP response header can be used to indicate whether a browser should be allowed to render a page in a <code>&lt;frame&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;embed&gt;</code>, or <code>&lt;object&gt;</code>. Sites can use this to avoid click-jacking attacks, by ensuring that their content is not embedded into other sites. Should be set to <code>DENY</code> or <code>SAMEORIGIN</code></p>
 
-<h3>Cross-Origin-Opener-Policy (COOP)</h3>
+<h3>Referrer-Policy</h3>
+<p>Referrer policy has been supported by browsers since 2014. Today, the default behavior in modern browsers is to no longer send all referrer information (origin, path, and query string) to the same site but to only send the origin to other sites. However, since not all users may be using the latest browsers and websites can (but should not!) have sensitive data in the query it is suggested forcing this behavior by sending this header on all responses.</p>
+
+<!-- <h3>Cross-Origin-Opener-Policy (COOP)</h3>
 <p>The HTTP Cross-Origin-Opener-Policy (COOP) response header allows you to ensure a top-level document does not share a browsing context group with cross-origin documents.
     This header works together with Cross-Origin-Embedder-Policy (COEP) and Cross-Origin-Resource-Policy (CORP) explained below.
     This mechanism protects against attacks like Spectre which can cross the security boundary established by Same Origin Policy (SOP) for resources in the same browsing context group.
@@ -27,7 +34,10 @@
     </p>
 
 <h3>Cross-Origin-Resource-Policy (CORP)</h3>
-<p>The Cross-Origin-Resource-Policy (CORP) header allows you to control the set of origins that are empowered to include a resource. It is a robust defense against attacks like Spectre, as it allows browsers to block a given response before it enters an attacker's process.</p>
+<p>The Cross-Origin-Resource-Policy (CORP) header allows you to control the set of origins that are empowered to include a resource. It is a robust defense against attacks like Spectre, as it allows browsers to block a given response before it enters an attacker's process.</p> -->
+
+<h3>X-Webkit-CSP & X-Content-Security-Policy</h3>
+<p>Deprecated. Should only be used to implement CSP for very old browsers (&lt;2013)</p>
 
 <h3>Permissions-Policy (formerly Feature-Policy)</h3>
 <p>Permissions-Policy allows you to control which origins can use which browser features, both in the top-level page and in embedded frames. For every feature controlled by Feature Policy, the feature is only enabled in the current document or frame if its origin matches the allowed list of origins. This means that you can configure your site to never allow the camera or microphone to be activated. This prevents that an injection, for example an XSS, enables the camera, the microphone, or other browser feature.
